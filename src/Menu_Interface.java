@@ -11,11 +11,12 @@ import java.awt.Color;
 import javax.swing.JRadioButton;
 import javax.swing.JCheckBox;
 
-public class Menu_Interface extends JPanel {
+public class Menu_Interface extends JPanel implements ItemListener{
 	JButton btnPrevious;
 	JButton btnFinishOrder;
 	JLabel lblNewLabel_1;
 	private JLabel lblTotalPrice;
+	private JLabel lblTotalPrice_1;
 	private ArrayList<JRadioButton> spiciness_options=new ArrayList<JRadioButton>();
 	private ArrayList<JCheckBox> addon_options=new ArrayList<JCheckBox>();
 	private ArrayList<JCheckBox> add_choice=new ArrayList<JCheckBox>();
@@ -71,7 +72,7 @@ public class Menu_Interface extends JPanel {
 		
 		lblTotalPrice = new JLabel("Total price:");
 		lblTotalPrice.setFont(new Font("Arial", Font.PLAIN, 18));
-		lblTotalPrice.setBounds(18, 335, 108, 31);
+		lblTotalPrice.setBounds(18, 335, 96, 31);
 		add(lblTotalPrice);
 		
 		JRadioButton chckbxNewCheckBox = new JRadioButton("Tonkotsu");
@@ -214,16 +215,53 @@ public class Menu_Interface extends JPanel {
 		btnFinishOrder.setFont(new Font("Arial", Font.PLAIN, 20));
 		btnFinishOrder.setBounds(198, 356, 182, 29);
 		add(btnFinishOrder);
+		
+		lblTotalPrice_1 = new JLabel("");
+		lblTotalPrice_1.setFont(new Font("Arial", Font.PLAIN, 18));
+		lblTotalPrice_1.setBounds(115, 335, 81, 31);
+		add(lblTotalPrice_1);
+		
+		for(int i=0;i<3;i++) {
+			JRadioButton temp_radioButton0=this.Soup.get(i);
+			temp_radioButton0.addItemListener(this);
+		}
+		for(int i=0;i<3;i++) {
+			JRadioButton temp_radioButton1=this.Noodles.get(i);
+			temp_radioButton1.addItemListener(this);
+		}
+		for(int i=0;i<3;i++) {
+			JRadioButton temp_radioButton2=this.Spring_onion.get(i);
+			temp_radioButton2.addItemListener(this);
+		}
+		for(int i=0;i<3;i++) {
+			JCheckBox temp_checkBox0=this.add_choice.get(i);
+			temp_checkBox0.addItemListener(this);
+		}
+		for(int i=0;i<6;i++) {
+			JRadioButton temp_radioButton=this.spiciness_options.get(i);
+			temp_radioButton.addItemListener(this);
+		}
+		for(int i=0;i<4;i++) {
+			JCheckBox temp_checkBox=this.addon_options.get(i);
+			temp_checkBox.addItemListener(this);
+		}
+		
+		
 
 	}
 	
+	 public void itemStateChanged(ItemEvent e){      
+	    this.read_selection();	
+	    this.setTotalprice(Data.getTotalPrice());
+	}
+	
 	public void setTotalprice(double total_price) {
-		this.lblTotalPrice.setText(this.lblTotalPrice.getText()+String.valueOf(total_price));
+		this.lblTotalPrice_1.setText(String.valueOf(total_price));
 	}
 	
 	public void read_selection() {
 
-		//¶ÁÈ¡Soup
+		//è¯»å–Soup
 		for(int i=0;i<3;i++) {
 			JRadioButton temp_radioButton0=this.Soup.get(i);
 			if(temp_radioButton0.isSelected()) {
@@ -232,7 +270,7 @@ public class Menu_Interface extends JPanel {
 			}
 		}
 		
-		//¶ÁÈ¡Noodle
+		//è¯»å–Noodle
 		for(int i=0;i<3;i++) {
 			JRadioButton temp_radioButton1=this.Noodles.get(i);
 			if(temp_radioButton1.isSelected()) {
@@ -241,7 +279,7 @@ public class Menu_Interface extends JPanel {
 			}
 		}
 		
-		//¶ÁÈ¡Spring onions
+		//è¯»å–Spring onions
 		for(int i=0;i<3;i++) {
 			JRadioButton temp_radioButton2=this.Spring_onion.get(i);
 			if(temp_radioButton2.isSelected()) {
@@ -250,7 +288,7 @@ public class Menu_Interface extends JPanel {
 			}
 		}
 		
-		//¶ÁÈ¡add_choice
+		//è¯»å–add_choice
 		for(int i=0;i<3;i++) {
 			JCheckBox temp_checkBox0=this.add_choice.get(i);
 			if(temp_checkBox0.isSelected()) {
@@ -259,7 +297,7 @@ public class Menu_Interface extends JPanel {
 		}
 			
 				
-		//¶ÁÈ¡spiciness
+		//è¯»å–spiciness
 		for(int i=0;i<6;i++) {
 			JRadioButton temp_radioButton=this.spiciness_options.get(i);
 			if(temp_radioButton.isSelected()) {
@@ -268,7 +306,7 @@ public class Menu_Interface extends JPanel {
 			}
 		}
 		
-		//¶ÁÈ¡add_ons
+		//è¯»å–add_ons
 		for(int i=0;i<4;i++) {
 			JCheckBox temp_checkBox=this.addon_options.get(i);
 			if(temp_checkBox.isSelected()) {
